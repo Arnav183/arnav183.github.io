@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arnav Hazari</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black:   #090909;
+      --gray-1:  #111111;
+      --gray-2:  #1a1a1a;
+      --gray-3:  #2a2a2a;
+      --gray-4:  #444444;
+      --muted:   #666666;
+      --silver:  #aaaaaa;
+      --white:   #f0ede8;
+      --accent:  #c8a96e;
+      --accent2: #7eb8a4;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.4;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 4rem;
+      border-bottom: 1px solid var(--gray-3);
+      background: rgba(9,9,9,0.92);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-logo {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 0 4rem;
+      padding-top: 5rem;
+      gap: 4rem;
+      border-bottom: 1px solid var(--gray-3);
+      position: relative;
+    }
+
+    .hero-grid-line {
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 50%;
+      width: 1px;
+      background: var(--gray-3);
+    }
+
+    .hero-left { padding-right: 3rem; }
+
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(3.5rem, 6vw, 5.5rem);
+      line-height: 1.0;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-name em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-summary {
+      font-size: 1rem;
+      color: var(--silver);
+      line-height: 1.75;
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.85rem 2rem;
+      background: var(--accent);
+      color: var(--black);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .btn-primary:hover { background: var(--white); }
+
+    .btn-ghost {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.85rem 2rem;
+      border: 1px solid var(--gray-4);
+      color: var(--silver);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-ghost:hover { border-color: var(--silver); color: var(--white); }
+
+    /* ── HERO RIGHT: STATS ── */
+    .hero-right {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--gray-3);
+      border: 1px solid var(--gray-3);
+    }
+
+    .stat-block {
+      background: var(--gray-1);
+      padding: 2rem;
+      transition: background 0.2s;
+    }
+
+    .stat-block:hover { background: var(--gray-2); }
+
+    .stat-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .stat-value {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.4rem;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-desc {
+      font-size: 0.8rem;
+      color: var(--silver);
+      line-height: 1.4;
+    }
+
+    /* ── SECTION BASE ── */
+    section {
+      padding: 6rem 4rem;
+      border-bottom: 1px solid var(--gray-3);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 4rem;
+    }
+
+    .section-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--gray-3);
+    }
+
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    /* ── ABOUT ── */
+    #about .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    #about p {
+      font-size: 1.05rem;
+      color: var(--silver);
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+
+    #about p strong {
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    .about-sidebar { display: flex; flex-direction: column; gap: 2rem; }
+
+    .sidebar-block {
+      border-left: 2px solid var(--accent);
+      padding-left: 1.5rem;
+    }
+
+    .sidebar-block-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .sidebar-block-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      padding: 0.3rem 0.75rem;
+      background: var(--gray-2);
+      color: var(--silver);
+      border: 1px solid var(--gray-3);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── EXPERIENCE ── */
+    #experience .exp-list { display: flex; flex-direction: column; gap: 0; }
+
+    .exp-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--gray-2);
+      transition: background 0.2s;
+    }
+
+    .exp-item:last-child { border-bottom: none; }
+
+    .exp-meta { padding-top: 0.2rem; }
+
+    .exp-dates {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+    }
+
+    .exp-company {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .exp-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+    }
+
+    .exp-org {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent2);
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+    }
+
+    .exp-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .exp-bullets li {
+      font-size: 0.9rem;
+      color: var(--silver);
+      line-height: 1.6;
+      padding-left: 1.2rem;
+      position: relative;
+    }
+
+    .exp-bullets li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--gray-4);
+      font-family: 'DM Mono', monospace;
+    }
+
+    /* ── PROJECTS ── */
+    #projects .proj-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--gray-3);
+      border: 1px solid var(--gray-3);
+    }
+
+    .proj-card {
+      background: var(--gray-1);
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      transition: background 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .proj-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .proj-card:hover { background: var(--gray-2); }
+    .proj-card:hover::before { transform: scaleX(1); }
+
+    .proj-number {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--gray-4);
+      letter-spacing: 0.15em;
+    }
+
+    .proj-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.8rem;
+      color: var(--white);
+      line-height: 1.1;
+    }
+
+    .proj-desc {
+      font-size: 0.9rem;
+      color: var(--silver);
+      line-height: 1.7;
+    }
+
+    .proj-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 1rem 0;
+      border-top: 1px solid var(--gray-3);
+      border-bottom: 1px solid var(--gray-3);
+    }
+
+    .proj-stat {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.82rem;
+    }
+
+    .proj-stat-val {
+      font-family: 'DM Mono', monospace;
+      color: var(--accent);
+      font-size: 0.78rem;
+      min-width: 60px;
+    }
+
+    .proj-stat-label { color: var(--muted); }
+
+    .proj-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .proj-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      padding: 0.25rem 0.6rem;
+      background: var(--gray-3);
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    .proj-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: auto;
+      transition: color 0.2s;
+    }
+
+    .proj-link:hover { color: var(--white); }
+    .proj-link::after { content: '↗'; }
+
+    .proj-screenshot {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border: 1px solid var(--gray-3);
+      background: var(--gray-2);
+      position: relative;
+      margin-bottom: 0.25rem;
+    }
+
+    .proj-screenshot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .proj-card:hover .proj-screenshot img { transform: scale(1.03); }
+
+    .proj-screenshot-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .proj-screenshot-placeholder span {
+      font-family: "DM Mono", monospace;
+      font-size: 0.65rem;
+      color: var(--gray-4);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      min-height: 40vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .contact-heading {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.5rem, 4vw, 4rem);
+      line-height: 1.1;
+      color: var(--white);
+    }
+
+    .contact-heading em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--gray-3);
+    }
+
+    .contact-row:last-child { border-bottom: none; }
+
+    .contact-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-transform: uppercase;
+      min-width: 80px;
+    }
+
+    .contact-value {
+      font-size: 0.95rem;
+      color: var(--silver);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .contact-value:hover { color: var(--white); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--gray-3);
+    }
+
+    footer span {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--gray-4);
+      letter-spacing: 0.1em;
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 3px;
+      height: 0.85em;
+      background: var(--accent);
+      margin-left: 2px;
+      vertical-align: middle;
+      animation: blink 1.2s infinite;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1.25rem 1.5rem; }
+      #hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; }
+      .hero-grid-line { display: none; }
+      .hero-left { padding-right: 0; }
+      #about .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      #projects .proj-grid { grid-template-columns: 1fr; }
+      .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      section { padding: 4rem 1.5rem; }
+      footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">AH / Portfolio</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-grid-line"></div>
+    <div class="hero-left fade-in">
+      <div class="hero-eyebrow">Atlanta, GA &nbsp;·&nbsp; U.S. Citizen &nbsp;·&nbsp; Available 2026</div>
+      <h1 class="hero-name">Arnav<br><em>Hazari</em><span class="cursor"></span></h1>
+      <p class="hero-summary">
+        Data analyst and builder with expertise in financial systems automation, market intelligence, and applied AI. Currently pursuing a BBA in Information Systems at Kennesaw State University Honors College with a 3.93 GPA.
+      </p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn-primary">View Work</a>
+        <a href="#contact" class="btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-right fade-in">
+      <div class="stat-block">
+        <div class="stat-label">Violations Detected</div>
+        <div class="stat-value">$2.3M+</div>
+        <div class="stat-desc">Regulatory violations caught at 96% accuracy across 1,000+ documents</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-label">Equities Analyzed</div>
+        <div class="stat-value">8,000+</div>
+        <div class="stat-desc">Publicly traded equities tracked in real time via MarketPulse</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-label">ETL Time Reduction</div>
+        <div class="stat-value">~90%</div>
+        <div class="stat-desc">Manual data aggregation eliminated through automated pipelines</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-label">AI Output Precision</div>
+        <div class="stat-value">>98%</div>
+        <div class="stat-desc">Ground-truth precision across 3 AI evaluation pipelines at Handshake</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-header">
+      <span class="section-tag">01 / About</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="about-grid fade-in">
+      <div>
+        <h2 class="section-title">Built from<br><em style="font-style:italic; color:var(--accent)">the ground up.</em></h2>
+        <br>
+        <p>I attend a non-target school. There is no consulting recruiter walking through campus in the fall, no pipeline that opens doors before applications are submitted. Everything I have built, I built independently. Not for a grade, not because a professor assigned it, but because the problem was real and I wanted to prove the solution worked.</p>
+        <p>My work sits at the intersection of <strong>financial systems</strong>, <strong>data engineering</strong>, and <strong>applied AI</strong>. I build things that eliminate manual work, surface signals from noise, and deliver outputs people can actually act on. The through-line is always the same: scope the problem rigorously, build without a safety net, ship something that holds up.</p>
+        <p>I'm targeting roles in <strong>consulting, product, and data analytics</strong>: environments where the expectation is that you figure it out.</p>
+      </div>
+      <div class="about-sidebar">
+        <div class="sidebar-block">
+          <div class="sidebar-block-label">Technical</div>
+          <div class="sidebar-block-items">
+            <span class="tag">Python</span>
+            <span class="tag">SQL</span>
+            <span class="tag">Pandas</span>
+            <span class="tag">NumPy</span>
+            <span class="tag">Streamlit</span>
+            <span class="tag">Excel</span>
+            <span class="tag">PowerPoint</span>
+            <span class="tag">Git</span>
+            <span class="tag">HTML5</span>
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sidebar-block-label">Education</div>
+          <div class="sidebar-block-items" style="flex-direction:column; gap:0.3rem;">
+            <span style="font-size:0.9rem; color:var(--white);">Kennesaw State University</span>
+            <span style="font-size:0.82rem; color:var(--muted);">Honors College &nbsp;·&nbsp; GPA 3.93</span>
+            <span style="font-family:'DM Mono',monospace; font-size:0.7rem; color:var(--accent); margin-top:0.25rem;">Expected May 2028</span>
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sidebar-block-label">Interests</div>
+          <div class="sidebar-block-items">
+            <span class="tag">Equity Markets</span>
+            <span class="tag">Supercars</span>
+            <span class="tag">Mechanical Watches</span>
+            <span class="tag">Tennis</span>
+            <span class="tag">Weightlifting</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-header">
+      <span class="section-tag">02 / Experience</span>
+      <div class="section-line"></div>
+    </div>
+    <h2 class="section-title fade-in">Professional<br><em style="font-style:italic; color:var(--accent)">track record.</em></h2>
+    <br><br>
+    <div class="exp-list">
+
+      <div class="exp-item fade-in">
+        <div class="exp-meta">
+          <div class="exp-dates">Mar 2026 — Present</div>
+          <div class="exp-company">Atlanta, GA</div>
+        </div>
+        <div>
+          <div class="exp-title">Generative AI Specialist</div>
+          <div class="exp-org">Uber AI Solutions</div>
+          <ul class="exp-bullets">
+            <li>Evaluating generative AI output quality across production data pipelines, identifying failure patterns and translating findings into structured remediation recommendations for the engineering team</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item fade-in">
+        <div class="exp-meta">
+          <div class="exp-dates">May 2026 — Aug 2026</div>
+          <div class="exp-company">Boulder, CO</div>
+        </div>
+        <div>
+          <div class="exp-title">Incoming Research Intern</div>
+          <div class="exp-org">University of Colorado Boulder — Robotics & CS</div>
+          <ul class="exp-bullets">
+            <li>Selected to analyze distributed AI model performance across embedded hardware systems, evaluating computational efficiency and accuracy trade-offs to surface optimization insights for a faculty research team</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item fade-in">
+        <div class="exp-meta">
+          <div class="exp-dates">Nov 2025 — Present</div>
+          <div class="exp-company">Atlanta, GA</div>
+        </div>
+        <div>
+          <div class="exp-title">AI Development Fellow</div>
+          <div class="exp-org">Handshake</div>
+          <ul class="exp-bullets">
+            <li>Built quality evaluation framework across 1,000+ AI-generated outputs, achieving >98% ground-truth precision across 3 core pipelines through systematic edge-case analysis</li>
+            <li>Translated pipeline failure patterns into structured diagnostic reports adopted by the product team, directly informing quarterly quality roadmap decisions across 5 model evaluation categories</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item fade-in">
+        <div class="exp-meta">
+          <div class="exp-dates">Sep 2025 — Present</div>
+          <div class="exp-company">Kennesaw, GA</div>
+        </div>
+        <div>
+          <div class="exp-title">Analyst</div>
+          <div class="exp-org">Bagwell Center for Market Analysis, KSU</div>
+          <ul class="exp-bullets">
+            <li>Researched macroeconomic conditions and competitive dynamics across 5+ industries, synthesizing findings into 3 structured analytical reports with scenario-based recommendations distributed to 30+ stakeholders</li>
+            <li>Presented data-driven insights to audiences of 40+, developing communication frameworks to translate complex analysis across technical and non-technical seniority levels</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item fade-in">
+        <div class="exp-meta">
+          <div class="exp-dates">Jan — Apr 2025</div>
+          <div class="exp-company">Alpharetta, GA</div>
+        </div>
+        <div>
+          <div class="exp-title">Financial Operations Intern</div>
+          <div class="exp-org">SFC</div>
+          <ul class="exp-bullets">
+            <li>Identified inefficiencies across 3 manual workflows and digitized each end-to-end, reducing processing time by ~20% and maintaining 100% compliance across 50+ tax filings</li>
+            <li>Launched sfcfinance.com to consolidate 10+ client service processes, driving ~40% increase in digital visibility</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-header">
+      <span class="section-tag">03 / Projects</span>
+      <div class="section-line"></div>
+    </div>
+    <h2 class="section-title fade-in">Built<br><em style="font-style:italic; color:var(--accent)">independently.</em></h2>
+    <br><br>
+    <div class="proj-grid fade-in">
+
+      <div class="proj-card">
+        <div class="proj-number">Project 01</div>
+        <div class="proj-name">Auto-Audit<br>Pro</div>
+        <div class="proj-screenshot"><div class="proj-screenshot-placeholder"><span>Drop in autoaudit.png to show screenshot</span></div><img src="autoaudit.png" alt="Auto-Audit Pro screenshot" style="position:absolute;inset:0;" onerror="this.previousElementSibling.style.display='flex'">
+        </div>
+        <p class="proj-desc">Automated financial compliance engine that processes batch invoices and unstructured PDFs, detecting regulatory violations with 96% accuracy and eliminating manual audit work.</p>
+        <div class="proj-stats">
+          <div class="proj-stat">
+            <span class="proj-stat-val">$2.3M+</span>
+            <span class="proj-stat-label">Violations detected</span>
+          </div>
+          <div class="proj-stat">
+            <span class="proj-stat-val">96%</span>
+            <span class="proj-stat-label">Detection accuracy</span>
+          </div>
+          <div class="proj-stat">
+            <span class="proj-stat-val">15+ hrs</span>
+            <span class="proj-stat-label">Weekly manual work eliminated</span>
+          </div>
+          <div class="proj-stat">
+            <span class="proj-stat-val">1,000+</span>
+            <span class="proj-stat-label">Invoices processed per run</span>
+          </div>
+        </div>
+        <div class="proj-stack">
+          <span class="proj-tag">Python</span>
+          <span class="proj-tag">Streamlit</span>
+          <span class="proj-tag">Pandas</span>
+          <span class="proj-tag">Regex</span>
+        </div>
+        <a href="https://auto-audit-pro-ywxnxtrpyrijhn2b2uupqz.streamlit.app/" target="_blank" class="proj-link">Live Demo</a>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-number">Project 02</div>
+        <div class="proj-name">Market<br>Pulse</div>
+        <div class="proj-screenshot"><div class="proj-screenshot-placeholder"><span>Drop in marketpulse.png to show screenshot</span></div><img src="marketpulse.png" alt="MarketPulse screenshot" style="position:absolute;inset:0;" onerror="this.previousElementSibling.style.display='flex'">
+        </div>
+        <p class="proj-desc">Financial intelligence platform providing real-time performance analysis and trend identification across 8,000+ publicly traded equities, powered by a proprietary business-phase algorithm.</p>
+        <div class="proj-stats">
+          <div class="proj-stat">
+            <span class="proj-stat-val">8,000+</span>
+            <span class="proj-stat-label">Equities tracked in real time</span>
+          </div>
+          <div class="proj-stat">
+            <span class="proj-stat-val">~90%</span>
+            <span class="proj-stat-label">Reduction in data aggregation time</span>
+          </div>
+          <div class="proj-stat">
+            <span class="proj-stat-val">2</span>
+            <span class="proj-stat-label">Phase signals: Expansion / Contraction</span>
+          </div>
+          <div class="proj-stat">
+            <span class="proj-stat-val">Daily</span>
+            <span class="proj-stat-label">Automated data feed ingestion</span>
+          </div>
+        </div>
+        <div class="proj-stack">
+          <span class="proj-tag">Python</span>
+          <span class="proj-tag">Streamlit</span>
+          <span class="proj-tag">Plotly</span>
+          <span class="proj-tag">yFinance</span>
+          <span class="proj-tag">Pandas</span>
+        </div>
+        <a href="https://marketpulse-3ovblv4wwsmuvdyfcpidix.streamlit.app/" target="_blank" class="proj-link">Live Demo</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-header">
+      <span class="section-tag">04 / Contact</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="contact-inner fade-in">
+      <div>
+        <h2 class="contact-heading">Let's<br><em>talk.</em></h2>
+        <br>
+        <p style="color:var(--muted); font-size:0.9rem; max-width:320px; line-height:1.7;">Open to consulting internships, data analytics roles, and research collaborations. Reach out directly.</p>
+      </div>
+      <div class="contact-links">
+        <div class="contact-row">
+          <span class="contact-label">Email</span>
+          <a href="mailto:Arnav.Hazari.07@gmail.com" class="contact-value">Arnav.Hazari.07@gmail.com</a>
+        </div>
+        <div class="contact-row">
+          <span class="contact-label">Phone</span>
+          <a href="tel:6787513535" class="contact-value">(678) 751-3535</a>
+        </div>
+        <div class="contact-row">
+          <span class="contact-label">LinkedIn</span>
+          <a href="https://linkedin.com/in/arnav-hazari" target="_blank" class="contact-value">linkedin.com/in/arnav-hazari</a>
+        </div>
+        <div class="contact-row">
+          <span class="contact-label">GitHub</span>
+          <a href="https://github.com/arnav183" target="_blank" class="contact-value">github.com/arnav183</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2026 Arnav Hazari</span>
+    <span>Atlanta, GA &nbsp;·&nbsp; U.S. Citizen</span>
+  </footer>
+
+  <script>
+    // Fade-in on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Typewriter on hero name
+    const nameEl = document.querySelector('.hero-name');
+    if (nameEl) {
+      const text = nameEl.innerHTML;
+      nameEl.style.opacity = '1';
+    }
+  </script>
+
+</body>
+</html>
