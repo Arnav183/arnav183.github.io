@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Arnav Hazari</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <style>
     :root {
       --black:   #05070d;
@@ -52,13 +52,20 @@
       left: 0;
       right: 0;
       z-index: 100;
+      padding: 0 4rem;
+      border-bottom: 1px solid rgba(46,58,82,0.5);
+      background: rgba(5, 7, 13, 0.72);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.5rem 4rem;
-      border-bottom: 1px solid var(--gray-3);
-      background: rgba(9,9,9,0.92);
-      backdrop-filter: blur(12px);
+      padding: 1.5rem 0;
     }
 
     .nav-logo {
@@ -100,7 +107,7 @@
       position: relative;
       background: radial-gradient(ellipse 70% 60% at 20% 50%, rgba(77,139,255,0.06) 0%, transparent 70%);
     }
-    }
+
 
     .hero-grid-line {
       position: absolute;
@@ -122,15 +129,17 @@
     }
 
     .hero-name {
-      font-family: 'DM Serif Display', serif;
+      font-family: 'Space Grotesk', 'DM Sans', sans-serif;
       font-size: clamp(3.5rem, 6vw, 5.5rem);
+      font-weight: 700;
       line-height: 1.0;
       color: var(--white);
       margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
     }
 
     .hero-name em {
-      font-style: italic;
+      font-style: normal;
       color: var(--accent);
     }
 
@@ -138,7 +147,7 @@
       font-size: 1rem;
       color: var(--silver);
       line-height: 1.75;
-      max-width: 480px;
+      max-width: 620px;
       margin-bottom: 2.5rem;
     }
 
@@ -161,7 +170,11 @@
       transition: all 0.2s;
     }
 
-    .btn-primary:hover { background: var(--white); }
+    .btn-primary:hover {
+      background: var(--white);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(77,139,255,0.25);
+    }
 
     .btn-ghost {
       font-family: 'DM Mono', monospace;
@@ -204,11 +217,12 @@
     }
 
     .stat-value {
-      font-family: 'DM Serif Display', serif;
-      font-size: 2.4rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 2.2rem;
       color: var(--accent);
       line-height: 1;
       margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
     }
 
     .stat-desc {
@@ -219,8 +233,17 @@
 
     /* ── SECTION BASE ── */
     section {
-      padding: 6rem 4rem;
+      padding: 6rem max(4rem, calc((100vw - 1280px) / 2 + 4rem));
       border-bottom: 1px solid var(--gray-3);
+    }
+
+    #hero {
+      padding-left: max(4rem, calc((100vw - 1280px) / 2 + 4rem));
+      padding-right: max(4rem, calc((100vw - 1280px) / 2 + 4rem));
+    }
+
+    footer {
+      padding: 2rem max(4rem, calc((100vw - 1280px) / 2 + 4rem));
     }
 
     .section-header {
@@ -245,8 +268,10 @@
     }
 
     .section-title {
-      font-family: 'DM Serif Display', serif;
+      font-family: 'Space Grotesk', 'DM Sans', sans-serif;
       font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
       color: var(--white);
       margin-bottom: 1rem;
     }
@@ -334,8 +359,9 @@
     }
 
     .exp-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.3rem;
+      font-family: 'Space Grotesk', 'DM Sans', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 600;
       color: var(--white);
       margin-bottom: 0.3rem;
     }
@@ -364,10 +390,10 @@
     }
 
     .exp-bullets li::before {
-      content: '—';
+      content: '·' / '';
       position: absolute;
       left: 0;
-      color: var(--gray-4);
+      color: var(--accent);
       font-family: 'DM Mono', monospace;
     }
 
@@ -386,7 +412,7 @@
       display: flex;
       flex-direction: column;
       gap: 1.25rem;
-      transition: background 0.25s;
+      transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
       position: relative;
       overflow: hidden;
     }
@@ -402,7 +428,11 @@
       transition: transform 0.3s ease;
     }
 
-    .proj-card:hover { background: var(--gray-2); }
+    .proj-card:hover {
+      background: var(--gray-2);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(77,139,255,0.12);
+    }
     .proj-card:hover::before { transform: scaleX(1); }
 
     .proj-number {
@@ -413,8 +443,10 @@
     }
 
     .proj-name {
-      font-family: 'DM Serif Display', serif;
+      font-family: 'Space Grotesk', 'DM Sans', sans-serif;
       font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
       color: var(--white);
       line-height: 1.1;
     }
@@ -476,23 +508,72 @@
       align-items: center;
       gap: 0.5rem;
       margin-top: auto;
-      transition: color 0.2s;
+      transition: color 0.2s, transform 0.2s;
     }
 
-    .proj-link:hover { color: var(--white); }
+    .proj-link:hover {
+      color: var(--white);
+      transform: translateY(-2px);
+    }
     .proj-link::after { content: '↗'; }
 
-    .proj-screenshot {
+    /* ── BROWSER MOCKUP ── */
+    .browser-mockup {
       width: 100%;
-      aspect-ratio: 16 / 9;
-      overflow: hidden;
       border: 1px solid var(--gray-3);
       background: var(--gray-2);
-      position: relative;
+      overflow: hidden;
       margin-bottom: 0.25rem;
+      border-radius: 6px;
     }
 
-    .proj-screenshot img {
+    .browser-bar {
+      background: var(--gray-3);
+      padding: 0.55rem 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .browser-dots {
+      display: flex;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+
+    .browser-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .browser-dot:nth-child(1) { background: #ff5f57; }
+    .browser-dot:nth-child(2) { background: #ffbd2e; }
+    .browser-dot:nth-child(3) { background: #28c840; }
+
+    .browser-url {
+      flex: 1;
+      background: rgba(255,255,255,0.05);
+      border-radius: 4px;
+      padding: 0.2rem 0.6rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .browser-screen {
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: var(--gray-2);
+      position: relative;
+    }
+
+    .browser-screen img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -501,9 +582,9 @@
       transition: transform 0.4s ease;
     }
 
-    .proj-card:hover .proj-screenshot img { transform: scale(1.03); }
+    .proj-card:hover .browser-screen img { transform: scale(1.03); }
 
-    .proj-screenshot-placeholder {
+    .browser-screen-placeholder {
       position: absolute;
       inset: 0;
       display: flex;
@@ -513,7 +594,7 @@
       gap: 0.5rem;
     }
 
-    .proj-screenshot-placeholder span {
+    .browser-screen-placeholder span {
       font-family: "DM Mono", monospace;
       font-size: 0.65rem;
       color: var(--gray-4);
@@ -537,14 +618,16 @@
     }
 
     .contact-heading {
-      font-family: 'DM Serif Display', serif;
+      font-family: 'Space Grotesk', 'DM Sans', sans-serif;
       font-size: clamp(2.5rem, 4vw, 4rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
       line-height: 1.1;
       color: var(--white);
     }
 
     .contact-heading em {
-      font-style: italic;
+      font-style: normal;
       color: var(--accent);
     }
 
@@ -584,7 +667,6 @@
 
     /* ── FOOTER ── */
     footer {
-      padding: 2rem 4rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -627,16 +709,20 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
-      nav { padding: 1.25rem 1.5rem; }
+      nav { padding: 0 1.5rem; }
       #hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; }
+      #hero, section, footer {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
       .hero-grid-line { display: none; }
       .hero-left { padding-right: 0; }
       #about .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
       .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
       #projects .proj-grid { grid-template-columns: 1fr; }
       .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-      section { padding: 4rem 1.5rem; }
-      footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+      section { padding-top: 4rem; padding-bottom: 4rem; }
+      footer { padding-top: 1.5rem; padding-bottom: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
     }
   </style>
 </head>
@@ -644,13 +730,15 @@
 
   <!-- NAV -->
   <nav>
-    <div class="nav-logo">AH / Portfolio</div>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
+    <div class="nav-inner">
+      <div class="nav-logo">AH / Portfolio</div>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
   </nav>
 
   <!-- HERO -->
@@ -660,7 +748,7 @@
       <div class="hero-eyebrow">Atlanta, GA &nbsp;·&nbsp; U.S. Citizen &nbsp;·&nbsp; Available 2026</div>
       <h1 class="hero-name">Arnav<br><em>Hazari</em><span class="cursor"></span></h1>
       <p class="hero-summary">
-        Data Analyst and Builder with expertise in financial systems automation, market intelligence, and applied AI. Currently pursuing a BBA in Management Information Systems at The University of Georgia — independently identifying high-impact problems and building rigorous solutions from scratch.
+        Building at the intersection of data, finance, and AI. I specialize in identifying high-impact operational bottlenecks and engineering rigorous, scalable solutions from scratch — delivering outputs that drive immediate business value.
       </p>
       <div class="hero-cta">
         <a href="#projects" class="btn-primary">View Work</a>
@@ -699,11 +787,11 @@
     </div>
     <div class="about-grid fade-in">
       <div>
-        <h2 class="section-title">Built from<br><em style="font-style:italic; color:var(--accent)">the ground up.</em></h2>
+        <h2 class="section-title">Built at the intersection of<br><em style="color:var(--accent)">data, finance, and AI.</em></h2>
         <br>
-        <p>My path here wasn't handed to me. Everything I have built, I built independently — not for a grade, not because a professor assigned it, but because the problem was real and I wanted to prove the solution worked.</p>
-        <p>My work sits at the intersection of <strong>financial systems</strong>, <strong>data engineering</strong>, and <strong>applied AI</strong>. I build things that eliminate manual work, surface signals from noise, and deliver outputs people can actually act on. The through-line is always the same: scope the problem rigorously, build without a safety net, ship something that holds up.</p>
-        <p>I'm targeting roles in <strong>consulting, product, and data analytics</strong>: environments where the expectation is that you figure it out.</p>
+        <p>I specialize in identifying high-impact operational bottlenecks and engineering rigorous, scalable solutions from scratch. My work focuses on eliminating manual workflows, surfacing clear signals from complex data, and delivering outputs that drive immediate business value.</p>
+        <p>Whether developing <strong>automated compliance engines</strong> or evaluating <strong>generative AI pipelines</strong>, my approach remains consistent: scope the problem accurately, build robust systems, and ship products that hold up in production.</p>
+        <p>I am actively targeting roles in <strong>consulting, product, and data analytics</strong> — environments where technical autonomy and strategic problem-solving are the baseline expectation, not a perk.</p>
       </div>
       <div class="about-sidebar">
         <div class="sidebar-block">
@@ -748,7 +836,7 @@
       <span class="section-tag">02 / Experience</span>
       <div class="section-line"></div>
     </div>
-    <h2 class="section-title fade-in">Professional<br><em style="font-style:italic; color:var(--accent)">track record.</em></h2>
+    <h2 class="section-title fade-in">Professional<br><em style="color:var(--accent)">track record.</em></h2>
     <br><br>
     <div class="exp-list">
 
@@ -878,14 +966,26 @@
       <span class="section-tag">03 / Projects</span>
       <div class="section-line"></div>
     </div>
-    <h2 class="section-title fade-in">Built<br><em style="font-style:italic; color:var(--accent)">independently.</em></h2>
+    <h2 class="section-title fade-in">Built<br><em style="color:var(--accent)">independently.</em></h2>
     <br><br>
     <div class="proj-grid fade-in">
 
       <div class="proj-card">
         <div class="proj-number">Project 01</div>
         <div class="proj-name">Auto-Audit<br>Pro</div>
-        <div class="proj-screenshot"><div class="proj-screenshot-placeholder"><span>Drop in autoaudit.png to show screenshot</span></div><img src="autoaudit.png" alt="Auto-Audit Pro screenshot" style="position:absolute;inset:0;" onerror="this.previousElementSibling.style.display='flex'">
+        <div class="browser-mockup">
+          <div class="browser-bar">
+            <div class="browser-dots">
+              <div class="browser-dot"></div>
+              <div class="browser-dot"></div>
+              <div class="browser-dot"></div>
+            </div>
+            <div class="browser-url">auto-audit-pro.streamlit.app</div>
+          </div>
+          <div class="browser-screen">
+            <div class="browser-screen-placeholder"><span>autoaudit.png</span></div>
+            <img src="autoaudit.png" alt="Auto-Audit Pro screenshot" style="position:absolute;inset:0;" onerror="this.previousElementSibling.style.display='flex'">
+          </div>
         </div>
         <p class="proj-desc">Automated financial compliance engine that processes batch invoices and unstructured PDFs, detecting regulatory violations with 96% accuracy and eliminating manual audit work.</p>
         <div class="proj-stats">
@@ -918,7 +1018,19 @@
       <div class="proj-card">
         <div class="proj-number">Project 02</div>
         <div class="proj-name">Market<br>Pulse</div>
-        <div class="proj-screenshot"><div class="proj-screenshot-placeholder"><span>Drop in marketpulse.png to show screenshot</span></div><img src="marketpulse.png" alt="MarketPulse screenshot" style="position:absolute;inset:0;" onerror="this.previousElementSibling.style.display='flex'">
+        <div class="browser-mockup">
+          <div class="browser-bar">
+            <div class="browser-dots">
+              <div class="browser-dot"></div>
+              <div class="browser-dot"></div>
+              <div class="browser-dot"></div>
+            </div>
+            <div class="browser-url">marketpulse.streamlit.app</div>
+          </div>
+          <div class="browser-screen">
+            <div class="browser-screen-placeholder"><span>marketpulse.png</span></div>
+            <img src="marketpulse.png" alt="MarketPulse screenshot" style="position:absolute;inset:0;" onerror="this.previousElementSibling.style.display='flex'">
+          </div>
         </div>
         <p class="proj-desc">Financial intelligence platform providing real-time performance analysis and trend identification across 8,000+ publicly traded equities, powered by a proprietary business-phase algorithm.</p>
         <div class="proj-stats">
@@ -960,9 +1072,9 @@
     </div>
     <div class="contact-inner fade-in">
       <div>
-        <h2 class="contact-heading">Let's<br><em>talk.</em></h2>
+        <h2 class="contact-heading">Let's<br><em>connect.</em></h2>
         <br>
-        <p style="color:var(--muted); font-size:0.9rem; max-width:320px; line-height:1.7;">Open to consulting internships, data analytics roles, and research collaborations. Reach out directly.</p>
+        <p style="color:var(--muted); font-size:0.9rem; max-width:380px; line-height:1.7;">Actively targeting consulting, data analytics, and product roles at leading firms. Available for internships starting Summer 2026. Reach out directly.</p>
       </div>
       <div class="contact-links">
         <div class="contact-row">
