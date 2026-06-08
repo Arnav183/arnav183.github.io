@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arnav Hazari</title>
+  <meta name="description" content="Arnav Hazari, MIS student at the University of Georgia. Research and analysis work across markets, AI, and operations. Looking for consulting and business analyst roles." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper:    #f4f1e8;
+      --paper-2:  #ece6d8;
+      --paper-3:  #e4ddcb;
+      --ink:      #1b1a14;
+      --ink-2:    #46412f;
+      --ink-3:    #756d59;
+      --rule:     #d6cdb8;
+      --rule-2:   #c8bda3;
+      --accent:   #b0492c;
+      --accent-d: #8c3820;
+      --max:      1200px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Hanken Grotesk', system-ui, sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+    }
+
+    /* paper grain */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.5;
+      mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+    }
+
+    ::selection { background: var(--accent); color: var(--paper); }
+
+    a { color: inherit; }
+
+    /* reading progress */
+    .progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      width: 0%;
+      background: var(--accent);
+      z-index: 200;
+    }
+
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 2.5rem; }
+
+    /* ── MASTHEAD ── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(244, 241, 232, 0.82);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .masthead {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 1.1rem 2.5rem;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .wordmark {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 1.15rem;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .wordmark span { color: var(--accent); }
+
+    .mast-nav { display: flex; gap: 2rem; }
+
+    .mast-nav a {
+      font-size: 0.74rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      text-decoration: none;
+      padding-bottom: 2px;
+      border-bottom: 1px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .mast-nav a:hover { color: var(--ink); border-color: var(--accent); }
+
+    /* ── HERO ── */
+    #hero { padding: 6.5rem 0 0; position: relative; z-index: 2; }
+
+    .eyebrow {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin-bottom: 1.6rem;
+    }
+    .eyebrow .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--rule-2); }
+
+    .hero-name {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: clamp(3.6rem, 11vw, 9rem);
+      line-height: 0.92;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin-bottom: 2rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.55fr 1fr;
+      gap: 4rem;
+      align-items: end;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .sub {
+      font-size: 1rem;
+      color: var(--ink-2);
+      line-height: 1.7;
+      max-width: 46ch;
+      margin-bottom: 2rem;
+    }
+
+    .cta { display: flex; gap: 0.9rem; flex-wrap: wrap; }
+
+    .btn {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.85rem 1.6rem;
+      transition: all 0.2s ease;
+    }
+    .btn-fill { background: var(--ink); color: var(--paper); }
+    .btn-fill:hover { background: var(--accent); transform: translateY(-2px); }
+    .btn-line { border: 1px solid var(--rule-2); color: var(--ink); }
+    .btn-line:hover { border-color: var(--ink); background: var(--paper-2); }
+
+    /* dateline facts */
+    .facts { display: flex; flex-direction: column; gap: 0; }
+    .fact {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.85rem 0;
+      border-top: 1px solid var(--rule);
+    }
+    .fact:first-child { border-top: none; }
+    .fact-k {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+    }
+    .fact-v {
+      font-family: 'Fraunces', serif;
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--ink);
+      text-align: right;
+    }
+
+    /* ── SECTION SCAFFOLD ── */
+    section { position: relative; z-index: 2; padding: 5.5rem 0; }
+
+    .sec-head {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .sec-num {
+      font-family: 'Fraunces', serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--accent);
+    }
+    .sec-label {
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      white-space: nowrap;
+    }
+    .sec-head .line { flex: 1; height: 1px; background: var(--rule); }
+
+    .sec-title {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 2.5rem;
+    }
+    .sec-title em { font-style: italic; color: var(--accent); }
+
+    /* ── EXPERIENCE ── */
+    .exp { border-top: 1px solid var(--rule); }
+    .exp-row {
+      display: grid;
+      grid-template-columns: 230px 1fr;
+      gap: 3rem;
+      padding: 2.4rem 0;
+      border-bottom: 1px solid var(--rule);
+      transition: padding-left 0.25s ease;
+    }
+    .exp-row:hover { padding-left: 0.6rem; }
+    .exp-row .meta { padding-top: 0.35rem; }
+    .exp-date {
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+    .exp-loc { font-size: 0.84rem; color: var(--ink-3); }
+    .exp-role {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 1.5rem;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      line-height: 1.15;
+      margin-bottom: 0.25rem;
+    }
+    .exp-org {
+      font-size: 0.86rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--ink-2);
+      margin-bottom: 1rem;
+    }
+    .exp-pts { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+    .exp-pts li {
+      font-size: 0.96rem;
+      color: var(--ink-2);
+      line-height: 1.65;
+      padding-left: 1.4rem;
+      position: relative;
+    }
+    .exp-pts li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0.62em;
+      width: 7px; height: 1px;
+      background: var(--accent);
+    }
+
+    /* ── WORK ── */
+    .work-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .card {
+      background: var(--paper-2);
+      border: 1px solid var(--rule);
+      padding: 1.6rem;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--rule-2);
+      box-shadow: 0 18px 40px rgba(27,26,20,0.10);
+    }
+    .card-top {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 1.1rem;
+    }
+    .card-name {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 1.7rem;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+    .card-yr { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; color: var(--ink-3); }
+
+    .shot {
+      border: 1px solid var(--rule);
+      overflow: hidden;
+      aspect-ratio: 16 / 10;
+      background: var(--paper-3);
+      margin-bottom: 1.2rem;
+    }
+    .shot img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top;
+      display: block;
+      transition: transform 0.5s ease;
+      filter: saturate(0.95);
+    }
+    .card:hover .shot img { transform: scale(1.04); }
+
+    .card-desc { font-size: 0.94rem; color: var(--ink-2); line-height: 1.65; margin-bottom: 1.3rem; }
+
+    .figs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.5rem;
+      padding: 1.1rem 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 1.2rem;
+    }
+    .fig-v {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 1.15rem;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .fig-k {
+      font-size: 0.64rem;
+      letter-spacing: 0.04em;
+      color: var(--ink-3);
+      line-height: 1.3;
+      margin-top: 0.35rem;
+    }
+
+    .stack { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.2rem; }
+    .chip {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--ink-2);
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      padding: 0.25rem 0.6rem;
+    }
+
+    .card-foot { margin-top: auto; }
+    .card-link {
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      border-bottom: 1px solid var(--accent);
+      padding-bottom: 2px;
+      transition: gap 0.2s ease, color 0.2s ease;
+    }
+    .card-link:hover { gap: 0.8rem; color: var(--accent); }
+
+    /* ── TOOLKIT ── */
+    .kit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+    .kit-block + .kit-block { margin-top: 2.5rem; }
+    .kit-h {
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 1.1rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .kit-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .kit-tag {
+      font-size: 0.78rem;
+      color: var(--ink);
+      background: var(--paper-2);
+      border: 1px solid var(--rule);
+      padding: 0.35rem 0.8rem;
+    }
+    .edu-school { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.35rem; color: var(--ink); margin-bottom: 0.2rem; }
+    .edu-deg { font-size: 0.95rem; color: var(--ink-2); margin-bottom: 0.15rem; }
+    .edu-meta { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; color: var(--accent); margin-bottom: 1.1rem; }
+    .edu-course { font-size: 0.9rem; color: var(--ink-3); line-height: 1.6; }
+    .edu-course b { color: var(--ink-2); font-weight: 600; }
+
+    /* ── CONTACT ── */
+    #contact { padding-bottom: 4rem; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .contact-title {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 1.4rem;
+    }
+    .contact-title em { font-style: italic; color: var(--accent); }
+    .contact-copy { font-size: 1rem; color: var(--ink-2); line-height: 1.7; max-width: 40ch; }
+
+    .clinks { display: flex; flex-direction: column; }
+    .clink {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding: 1.1rem 0;
+      border-top: 1px solid var(--rule);
+      text-decoration: none;
+      transition: padding-left 0.2s ease;
+    }
+    .clink:last-child { border-bottom: 1px solid var(--rule); }
+    .clink:hover { padding-left: 0.5rem; }
+    .clink-k { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); }
+    .clink-v { font-size: 1rem; color: var(--ink); transition: color 0.2s; }
+    .clink:hover .clink-v { color: var(--accent); }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 2;
+      border-top: 1px solid var(--rule);
+      padding: 2rem 0;
+    }
+    .foot {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .foot span { font-size: 0.72rem; letter-spacing: 0.06em; color: var(--ink-3); }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(26px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .load { opacity: 0; animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
+    .d1 { animation-delay: 0.05s; }
+    .d2 { animation-delay: 0.18s; }
+    .d3 { animation-delay: 0.32s; }
+    .d4 { animation-delay: 0.46s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 880px) {
+      .wrap, .masthead, .foot { padding-left: 1.4rem; padding-right: 1.4rem; }
+      .mast-nav { gap: 1.1rem; }
+      .mast-nav a:nth-child(1) { display: none; }
+      #hero { padding-top: 4.5rem; }
+      .hero-grid { grid-template-columns: 1fr; gap: 2.5rem; align-items: start; }
+      .exp-row { grid-template-columns: 1fr; gap: 0.8rem; }
+      .exp-row:hover { padding-left: 0; }
+      .work-grid { grid-template-columns: 1fr; }
+      .kit-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      section { padding: 4rem 0; }
+    }
+    @media (max-width: 460px) {
+      .figs { grid-template-columns: repeat(2, 1fr); gap: 0.9rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal, .load { transition: none; animation: none; opacity: 1; transform: none; }
+      .card:hover, .exp-row:hover, .clink:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+
+  <!-- MASTHEAD -->
+  <header>
+    <div class="masthead">
+      <a href="#hero" class="wordmark">Arnav Hazari<span>.</span></a>
+      <nav class="mast-nav">
+        <a href="#experience">Experience</a>
+        <a href="#work">Work</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="wrap">
+      <div class="eyebrow load d1">
+        Atlanta, Georgia <span class="dot"></span> U.S. Citizen <span class="dot"></span> MIS at UGA
+      </div>
+      <h1 class="hero-name load d2">Arnav Hazari</h1>
+      <div class="hero-grid">
+        <div class="load d3">
+          <p class="sub">Management information systems student at the University of Georgia, with most of my time so far spent on analyst and research work across markets, AI, and operations.</p>
+          <div class="cta">
+            <a href="#work" class="btn btn-fill">See selected work</a>
+            <a href="#contact" class="btn btn-line">Get in touch</a>
+          </div>
+        </div>
+        <div class="facts load d4">
+          <div class="fact"><span class="fact-k">Studying</span><span class="fact-v">BBA, MIS</span></div>
+          <div class="fact"><span class="fact-k">School</span><span class="fact-v">University of Georgia</span></div>
+          <div class="fact"><span class="fact-k">GPA</span><span class="fact-v">3.94 / 4.0</span></div>
+          <div class="fact"><span class="fact-k">Graduating</span><span class="fact-v">May 2028</span></div>
+          <div class="fact"><span class="fact-k">Now</span><span class="fact-v">HIRO Lab, CU Boulder</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-num">01</span>
+        <span class="sec-label">Experience</span>
+        <span class="line"></span>
+      </div>
+      <h2 class="sec-title reveal">Where I've<br><em>worked.</em></h2>
+
+      <div class="exp">
+        <div class="exp-row reveal">
+          <div class="meta">
+            <div class="exp-date">Summer 2026</div>
+            <div class="exp-loc">Boulder, CO</div>
+          </div>
+          <div>
+            <div class="exp-role">Research Intern</div>
+            <div class="exp-org">HIRO Lab, University of Colorado Boulder</div>
+            <ul class="exp-pts">
+              <li>Built a GPU-accelerated soft-body simulation on NVIDIA Warp and Newton, running three physics solvers over a 2,540-node tetrahedral mesh, to model bone deformation in real time for robot-assisted surgery.</li>
+              <li>Wrote the validation suite that proved the result was physically real, checking volume conservation, mesh inversion, elastic recovery, and stability limits. Also built a headless recording pipeline and landed a reviewed pull request on the lab's open-source robotics site.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-row reveal">
+          <div class="meta">
+            <div class="exp-date">Nov 2025 &ndash; May 2026</div>
+            <div class="exp-loc">Atlanta, GA</div>
+          </div>
+          <div>
+            <div class="exp-role">R4 Reviewer, AI Development Fellow</div>
+            <div class="exp-org">Handshake</div>
+            <ul class="exp-pts">
+              <li>Wrote 200-plus agentic evaluation tasks across 30 business environments, each one a benchmark for whether an AI model could handle real business reasoning. Was promoted to R4 reviewer, the last quality check before tasks went into live model testing.</li>
+              <li>As a reviewer, audited tasks against 14 disqualification criteria, with the working bar being whether two independent graders would land on the same answer. Earlier visual reasoning tests held a 3.0 out of 3.0 quality rating across everything I submitted.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-row reveal">
+          <div class="meta">
+            <div class="exp-date">Sep 2025 &ndash; May 2026</div>
+            <div class="exp-loc">Kennesaw, GA</div>
+          </div>
+          <div>
+            <div class="exp-role">Student Analyst</div>
+            <div class="exp-org">Bagwell Center for Market Analysis, KSU</div>
+            <ul class="exp-pts">
+              <li>Turned macroeconomic and competitive research across five-plus industries into three structured reports with scenario-based recommendations, read by more than 30 stakeholders.</li>
+              <li>Presented the findings to audiences of forty-plus, adjusting how I framed things depending on how technical the room was.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-row reveal">
+          <div class="meta">
+            <div class="exp-date">Sep 2025 &ndash; May 2026</div>
+            <div class="exp-loc">Kennesaw, GA</div>
+          </div>
+          <div>
+            <div class="exp-role">Student Researcher</div>
+            <div class="exp-org">First-Year Scholars Program, KSU</div>
+            <ul class="exp-pts">
+              <li>Co-designed a comparative study on resistance training, contributing to the IRB submission, the literature review, data collection, and the statistical analysis, then presented the results to faculty.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-row reveal">
+          <div class="meta">
+            <div class="exp-date">Apr &ndash; Aug 2025</div>
+            <div class="exp-loc">Alpharetta, GA</div>
+          </div>
+          <div>
+            <div class="exp-role">Recovery Associate</div>
+            <div class="exp-org">The Home Depot</div>
+            <ul class="exp-pts">
+              <li>Managed more than $10K in weekly inventory across departments and helped twenty-plus customers a day in a high-volume store.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-num">02</span>
+        <span class="sec-label">Selected work</span>
+        <span class="line"></span>
+      </div>
+      <h2 class="sec-title reveal">Things I built<br><em>start to finish.</em></h2>
+
+      <div class="work-grid">
+
+        <div class="card reveal">
+          <div class="card-top">
+            <span class="card-name">Auto-Audit Pro</span>
+            <span class="card-yr">Oct 2025</span>
+          </div>
+          <div class="shot">
+            <img src="autoaudit.png" alt="Auto-Audit Pro dashboard">
+          </div>
+          <p class="card-desc">A compliance tool that reads through invoices and unstructured PDFs and flags the ones that break the rules, so a person is not doing it by hand. On a run of 1,000-plus documents it caught $2.3M in violations at 96% accuracy and took more than 15 hours of weekly review off the table.</p>
+          <div class="figs">
+            <div><div class="fig-v">$2.3M</div><div class="fig-k">Flagged</div></div>
+            <div><div class="fig-v">96%</div><div class="fig-k">Accuracy</div></div>
+            <div><div class="fig-v">1,000+</div><div class="fig-k">Docs / run</div></div>
+            <div><div class="fig-v">15+ hrs</div><div class="fig-k">Saved weekly</div></div>
+          </div>
+          <div class="stack">
+            <span class="chip">Python</span>
+            <span class="chip">Streamlit</span>
+            <span class="chip">Pandas</span>
+            <span class="chip">Regex</span>
+          </div>
+          <div class="card-foot">
+            <a href="https://auto-audit-pro-ywxnxtrpyrijhn2b2uupqz.streamlit.app/" target="_blank" rel="noopener" class="card-link">Live demo &rarr;</a>
+          </div>
+        </div>
+
+        <div class="card reveal">
+          <div class="card-top">
+            <span class="card-name">MarketPulse</span>
+            <span class="card-yr">Nov 2025</span>
+          </div>
+          <div class="shot">
+            <img src="marketpulse.png" alt="MarketPulse equity dashboard">
+          </div>
+          <p class="card-desc">A live equity dashboard that pulls 8,000-plus stocks a day and works out RSI, moving averages, and volatility on its own, then sorts each name into an expansion or contraction signal with the news sitting right next to it. Cut the manual aggregation I was doing by about 90%.</p>
+          <div class="figs">
+            <div><div class="fig-v">8,000+</div><div class="fig-k">Equities daily</div></div>
+            <div><div class="fig-v">90%</div><div class="fig-k">Less manual work</div></div>
+            <div><div class="fig-v">2</div><div class="fig-k">Phase signals</div></div>
+            <div><div class="fig-v">Live</div><div class="fig-k">News feed</div></div>
+          </div>
+          <div class="stack">
+            <span class="chip">Python</span>
+            <span class="chip">Streamlit</span>
+            <span class="chip">Plotly</span>
+            <span class="chip">yFinance</span>
+            <span class="chip">Pandas</span>
+          </div>
+          <div class="card-foot">
+            <a href="https://marketpulse-3ovblv4wwsmuvdyfcpidix.streamlit.app/" target="_blank" rel="noopener" class="card-link">Live demo &rarr;</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLKIT -->
+  <section id="toolkit">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-num">03</span>
+        <span class="sec-label">Toolkit</span>
+        <span class="line"></span>
+      </div>
+      <div class="kit-grid">
+        <div class="reveal">
+          <div class="kit-block">
+            <div class="kit-h">Skills</div>
+            <div class="kit-tags">
+              <span class="kit-tag">Python</span>
+              <span class="kit-tag">SQL</span>
+              <span class="kit-tag">Pandas</span>
+              <span class="kit-tag">NumPy</span>
+              <span class="kit-tag">PyTorch</span>
+              <span class="kit-tag">Excel</span>
+              <span class="kit-tag">PowerPoint</span>
+              <span class="kit-tag">Streamlit</span>
+              <span class="kit-tag">Git</span>
+              <span class="kit-tag">HTML5</span>
+            </div>
+          </div>
+          <div class="kit-block">
+            <div class="kit-h">Interests</div>
+            <div class="kit-tags">
+              <span class="kit-tag">Equity markets</span>
+              <span class="kit-tag">Mechanical watches</span>
+              <span class="kit-tag">Supercars</span>
+              <span class="kit-tag">Tennis</span>
+              <span class="kit-tag">Weightlifting</span>
+            </div>
+          </div>
+        </div>
+        <div class="reveal">
+          <div class="kit-h">Education</div>
+          <div class="edu-school">University of Georgia</div>
+          <div class="edu-deg">Bachelor of Business Administration, Management Information Systems</div>
+          <div class="edu-meta">GPA 3.94 / 4.0 &middot; Expected May 2028 &middot; Athens, GA</div>
+          <p class="edu-course"><b>Coursework:</b> Financial Accounting, Business Statistics, Data Analytics, Information Systems Management, Managerial Economics.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-num">04</span>
+        <span class="sec-label">Contact</span>
+        <span class="line"></span>
+      </div>
+      <div class="contact-grid">
+        <div class="reveal">
+          <h2 class="contact-title">Get in<br><em>touch.</em></h2>
+          <p class="contact-copy">Open to consulting and business analyst internships this winter. Email is the best way to reach me.</p>
+        </div>
+        <div class="clinks reveal">
+          <a href="mailto:Arnav.Hazari.07@gmail.com" class="clink">
+            <span class="clink-k">Email</span>
+            <span class="clink-v">Arnav.Hazari.07@gmail.com</span>
+          </a>
+          <a href="tel:6787513535" class="clink">
+            <span class="clink-k">Phone</span>
+            <span class="clink-v">(678) 751-3535</span>
+          </a>
+          <a href="https://linkedin.com/in/arnav-hazari" target="_blank" rel="noopener" class="clink">
+            <span class="clink-k">LinkedIn</span>
+            <span class="clink-v">in/arnav-hazari</span>
+          </a>
+          <a href="https://github.com/arnav183" target="_blank" rel="noopener" class="clink">
+            <span class="clink-k">GitHub</span>
+            <span class="clink-v">github.com/arnav183</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="foot">
+      <span>&copy; 2026 Arnav Hazari</span>
+      <span>Atlanta, Georgia</span>
+    </div>
+  </footer>
+
+  <script>
+    // reveal on scroll
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+    // reading progress
+    const bar = document.getElementById('progress');
+    const onScroll = () => {
+      const h = document.documentElement;
+      const max = h.scrollHeight - h.clientHeight;
+      bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+    };
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  </script>
+</body>
+</html>
